@@ -10,6 +10,7 @@
     "nuxt": "3.0.0-rc.3"
   },
   "dependencies": {
+    "@opentok/client": "^2.22.3",
     "axios": "^0.27.2"
   }
 }
