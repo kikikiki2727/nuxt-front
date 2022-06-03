@@ -1,7 +1,7 @@
 <template>
   <div>
     {{ sample }}
-    <button @click="test">ボタン</button>
+    <button @click="test2">ボタン</button>
   </div>
 </template>
 
@@ -33,12 +33,30 @@ export default defineComponent({
     });
 
     const test = () => {
-      console.log("OT", OT);
+      const data = {
+        name: "名前2",
+        email: "email2@sample.com",
+      };
+      axios.post(`${baseURL}/user`, data).then((res) => {
+        console.log(res.data);
+      });
+    };
+
+    const test2 = () => {
+      const data = {
+        title: "ブログタイトル2",
+        authorEmail: "email2@sample.com",
+        publishd: true,
+      };
+      axios.post(`${baseURL}/post`, data).then((res) => {
+        console.log(res.data);
+      });
     };
 
     return {
       sample,
       test,
+      test2,
     };
   },
 });
