@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ sample }}
+    {{ sampleIndex }}
     <NuxtLink to="/sample/1">リンク</NuxtLink>
     {{ composablesSample }}
     {{ composablesClass }}
@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-const sample = ref("sample");
+const sampleIndex = ref("sample");
 const composablesSample = returnSample();
 const composablesClass = new useSampleClass();
 const composablesFunc = composablesClass.classFunc();

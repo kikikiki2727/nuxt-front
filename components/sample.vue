@@ -3,25 +3,29 @@
     <div v-if="aaplePending">loading...</div>
     {{ aaplePending }}
     {{ sample }}
-    <button @click="test2">ボタン</button>
+    <button @click="fetchPosts">一覧</button>
+    <button @click="createPost">作成</button>
     {{ apple }}
     <Sample2 orange="orange" />
+    {{ posts }}
+    {{ post }}
   </div>
 </template>
 
 <script setup lang="ts">
-import axios from "axios";
-
 const config = useRuntimeConfig();
 const plugins = useNuxtApp();
-const route = useRoute();
 
 const baseURL =
   process.env.NODE_ENV === "production"
     ? config.public.baseApiUrl
     : config.public.baseApiUrlDev;
 
-const sample = ref<string>("sample");
+const sample = ref<string | void>("sample");
+
+const posts = ref(null);
+
+const post = ref(null);
 
 // const {
 //   data: apple,
@@ -43,29 +47,37 @@ onMounted(async () => {
   const vonage = new Vonage(OT);
   console.log(vonage);
   console.log(plugins.$hello());
-  axios.get(`${baseURL}/sample`).then((res) => {
-    sample.value = res.data;
-  });
+  sample.value = await $fetch<string>(`${baseURL}/sample`).catch((error) =>
+    console.log(error.data)
+  );
 });
 
-const test = () => {
+const fetchPosts = async () => {
   const data = {
     name: "名前2",
     email: "email2@sample.com",
   };
-  axios.post(`${baseURL}/user`, data).then((res) => {
-    console.log(res.data);
-  });
+  posts.value = await $fetch(`${baseURL}/post/feed`).catch((error) =>
+    console.log(error.data)
+  );
+  console.log(posts.value[0].title);
 };
 
-const test2 = () => {
+const createPost = async () => {
   const data = {
-    title: "ブログタイトル2",
+    title: "ブログタイトル5",
     authorEmail: "email2@sample.com",
-    publishd: true,
+    published: true,
   };
-  axios.post(`${baseURL}/post`, data).then((res) => {
-    console.log(res.data);
-  });
+  post.value = await $fetch(`${baseURL}/post`, {
+    method: "POST",
+    body: data,
+  }).catch((error) => console.log(error.data));
+  console.log(post.value);
 };
+</script>
+
+// トップレベルawaitのエラー回避
+<script lang="ts">
+export {};
 </script>
