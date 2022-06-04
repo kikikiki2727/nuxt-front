@@ -1,5 +1,5 @@
 <template>
   <div>
-    <Sample />
+    <HomeComponent />
   </div>
 </template>

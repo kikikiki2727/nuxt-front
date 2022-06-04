@@ -2,6 +2,7 @@
   <div>
     {{ sample2 }}
     {{ orange }}
+    {{ cherry }}
   </div>
 </template>
 <script setup lang="ts">
@@ -12,5 +13,8 @@ type Props = {
   cherry?: string;
 };
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  orange: "",
+  cherry: "cherry",
+});
 </script>
