@@ -5,14 +5,12 @@
     {{ sample }}
     <button @click="test2">ボタン</button>
     {{ apple }}
-    <Sample2 />
+    <Sample2 orange="orange" />
   </div>
 </template>
 
 <script setup lang="ts">
-// import { ref, onMounted } from "vue";
 import axios from "axios";
-import Vonage from "~~/service/vonage";
 
 const config = useRuntimeConfig();
 const plugins = useNuxtApp();
@@ -42,7 +40,7 @@ console.log(apple);
 
 onMounted(async () => {
   await import("@opentok/client");
-  const vonage = new Vonage(OT);
+  const vonage = new useVonage(OT);
   console.log(vonage);
   console.log(plugins.$hello());
   axios.get(`${baseURL}/sample`).then((res) => {
