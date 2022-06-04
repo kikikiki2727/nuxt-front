@@ -1,4 +1,4 @@
-export class useVonage {
+export class Vonage {
   OT: Object
 
   constructor(OT: Object){

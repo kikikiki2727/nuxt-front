@@ -1,5 +1,5 @@
-export const useSample = () => {
-    return 'composablesSample'
+export const returnSample = () => {
+    return 'returnSample'
 }
 
 export class useSampleClass {

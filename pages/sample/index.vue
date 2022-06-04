@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 const sample = ref("sample");
-const composablesSample = useSample();
+const composablesSample = returnSample();
 const composablesClass = new useSampleClass();
 const composablesFunc = composablesClass.classFunc();
 </script>

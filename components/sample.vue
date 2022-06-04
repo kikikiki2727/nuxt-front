@@ -40,7 +40,7 @@ console.log(apple);
 
 onMounted(async () => {
   await import("@opentok/client");
-  const vonage = new useVonage(OT);
+  const vonage = new Vonage(OT);
   console.log(vonage);
   console.log(plugins.$hello());
   axios.get(`${baseURL}/sample`).then((res) => {
