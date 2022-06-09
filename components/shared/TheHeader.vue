@@ -1,15 +1,70 @@
 <template>
   <div class="header">
-    <div class="left">ヘッダーだよ</div>
-    <div class="right"></div>
+    <div class="left">
+      <img src="/public/icon/movie.svg" />
+      <div class="context">
+        <p class="text">Mori</p>
+        <p class="text">Meet</p>
+      </div>
+    </div>
+    <div class="right">
+      <div class="date">{{ currentDate }}</div>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import format from "date-fns/format";
+const dateInstance = new Date();
+const weekNames = ["日", "月", "火", "水", "木", "金", "土"];
+const currentDate = ref(
+  format(dateInstance, `HH:mm・M月d日(${weekNames[dateInstance.getDay()]})`)
+);
+
+onMounted(() => {
+  const oneSecond = 60000;
+  setInterval(() => {
+    currentDate.value = format(
+      new Date(),
+      `HH:mm・M月d日(${weekNames[dateInstance.getDay()]})`
+    );
+  }, oneSecond);
+});
+</script>
 
 <style lang="scss" scoped>
 .header {
-  height: 100px;
+  padding: 0 10px;
+  height: 70px;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > .left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  > .left > .context {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  > .left > .context > .text {
+    font-size: 1.3rem;
+
+    &:first-of-type {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+  }
+
+  > .right {
+    display: flex;
+    align-items: center;
+  }
 }
 </style>

@@ -7,7 +7,7 @@
         </div>
         <div class="bottom">
           <p>
-            Googleでは、安全性の高いビジネス会議サービス「Google
+            Moriでは、安全性の高いビジネス会議サービス「Mori
             Meet」を刷新して、どなたでも無料でご利用いただけるようにしました。
           </p>
         </div>
