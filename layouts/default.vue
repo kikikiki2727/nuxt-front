@@ -27,4 +27,23 @@ button {
   -webkit-appearance: none;
   cursor: pointer;
 }
+
+input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
 </style>
