@@ -16,19 +16,20 @@
 <script setup lang="ts">
 import format from "date-fns/format";
 const dateInstance = new Date();
-const weekNames = ["日", "月", "火", "水", "木", "金", "土"];
+const dayOfWeekList = ["日", "月", "火", "水", "木", "金", "土"];
+const dayOfWeekToday = dayOfWeekList[dateInstance.getDay()];
 const currentDate = ref(
-  format(dateInstance, `HH:mm・M月d日(${weekNames[dateInstance.getDay()]})`)
+  format(dateInstance, `HH:mm・M月d日(${dayOfWeekToday})`)
 );
 
 onMounted(() => {
-  const oneSecond = 60000;
+  const fiveSeconds = 5000;
   setInterval(() => {
     currentDate.value = format(
-      new Date(),
-      `HH:mm・M月d日(${weekNames[dateInstance.getDay()]})`
+      dateInstance,
+      `HH:mm・M月d日(${dayOfWeekToday})`
     );
-  }, oneSecond);
+  }, fiveSeconds);
 });
 </script>
 
