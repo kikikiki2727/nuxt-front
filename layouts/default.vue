@@ -13,7 +13,7 @@
 <style lang="scss">
 .layaut {
   > .contents {
-    height: calc(100% - 100px);
+    height: calc(100% - 70px); // 70px:ヘッダーの高さ
   }
 }
 

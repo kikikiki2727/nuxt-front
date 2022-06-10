@@ -15,7 +15,7 @@
       <div class="main">
         <button class="button">
           <img src="/public/icon/camera.svg" />
-          <p class="text">新しい会議を作成</p>
+          <p class="text" @click="toggleSelectionPopup">新しい会議を作成</p>
         </button>
         <div class="meetCode">
           <img src="/public/icon/keyboard.svg" />
@@ -28,9 +28,16 @@
       <div class="description"></div>
     </div>
   </div>
+  <HomeSelectionPopup ref="selectionPopup" />
 </template>
+<script setup lang="ts">
+import SelectionPopup from "components/home/selectionPopup.vue";
 
-<script setup lang="ts"></script>
+const selectionPopup = ref<InstanceType<typeof SelectionPopup>>();
+const toggleSelectionPopup = () => {
+  selectionPopup.value.isDisplay = true;
+};
+</script>
 
 <style lang="scss" scoped>
 .home-containar {
