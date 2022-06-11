@@ -1,7 +1,7 @@
 <template>
   <div v-if="isDisplay" class="selection-popup">
     <div class="section">
-      <img class="icon link" src="/public/icon/link.svg" />
+      <img class="icon -link" src="/public/icon/link.svg" />
       <p class="text">次回以降の会議を作成</p>
     </div>
     <div class="section">
@@ -59,7 +59,7 @@ export default defineComponent({
   }
 
   > .section > .icon {
-    &.link {
+    &.-link {
       transform: rotate(45deg);
     }
   }
