@@ -1,11 +1,13 @@
 <template>
   <div class="header">
     <div class="left">
-      <img src="/public/icon/movie.svg" />
-      <div class="context">
-        <p class="text">Mori</p>
-        <p class="text">Meet</p>
-      </div>
+      <NuxtLink to="/" class="nuxtLink">
+        <img src="/public/icon/movie.svg" />
+        <div class="context">
+          <p class="text">Mori</p>
+          <p class="text">Meet</p>
+        </div>
+      </NuxtLink>
     </div>
     <div class="right">
       <div class="date">{{ currentDate }}</div>
@@ -40,19 +42,19 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
 
-  > .left {
+  > .left > .nuxtLink {
     display: flex;
     align-items: center;
     gap: 15px;
   }
 
-  > .left > .context {
+  > .left > .nuxtLink > .context {
     display: flex;
     align-items: center;
     gap: 5px;
   }
 
-  > .left > .context > .text {
+  > .left > .nuxtLink > .context > .text {
     font-size: 1.3rem;
 
     &:first-of-type {

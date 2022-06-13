@@ -1,23 +1,26 @@
 <template>
   <div v-if="isDisplay" class="selection-popup">
-    <div class="section" @click="createMeetingNextTime">
-      <img class="icon -link" src="/public/icon/link.svg" />
-      <p class="text">次回以降の会議を作成</p>
+    <div class="popup">
+      <div class="section" @click="createMeetingNextTime">
+        <img class="icon -link" src="/public/icon/link.svg" />
+        <p class="text">次回以降の会議を作成</p>
+      </div>
+      <div class="section" @click="createMeetingNow">
+        <img class="icon" src="/public/icon/plus.svg" />
+        <p class="text">会議を今すぐ開始</p>
+      </div>
+      <div class="section">
+        <img class="icon" src="/public/icon/calendar.svg" />
+        <p class="text">Moriカレンダーでスケジュールを設定</p>
+      </div>
     </div>
-    <div class="section" @click="createMeetingNow">
-      <img class="icon" src="/public/icon/plus.svg" />
-      <p class="text">会議を今すぐ開始</p>
-    </div>
-    <div class="section">
-      <img class="icon" src="/public/icon/calendar.svg" />
-      <p class="text">Moriカレンダーでスケジュールを設定</p>
-    </div>
+    <div class="overlay" @click="toggleDisplay"></div>
   </div>
-  <div v-if="isDisplay" class="overlay" @click.self="toggleDisplay"></div>
 </template>
 <script setup lang="ts">
 // export default defineComponent({
 //   setup() {
+const router = useRouter();
 const isDisplay = ref<boolean>(false);
 
 const toggleDisplay = (): void => {
@@ -25,6 +28,7 @@ const toggleDisplay = (): void => {
 };
 
 const createMeetingNow = () => {
+  router.push("/show");
   isDisplay.value = false;
 };
 
@@ -48,15 +52,23 @@ defineExpose({
 
 <style lang="scss" scoped>
 .selection-popup {
-  box-shadow: 0 5px 8px gray;
-  border-radius: 5px;
   position: absolute;
-  top: 45%;
-  left: 8%;
-  z-index: 3;
-  background-color: white;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
 
-  > .section {
+  > .popup {
+    box-shadow: 0 5px 8px gray;
+    border-radius: 5px;
+    position: absolute;
+    top: 43%;
+    left: 6%;
+    z-index: 3;
+    background-color: white;
+  }
+
+  > .popup > .section {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -68,18 +80,16 @@ defineExpose({
     }
   }
 
-  > .section > .icon {
+  > .popup > .section > .icon {
     &.-link {
       transform: rotate(45deg);
     }
   }
-}
 
-.overlay {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 2;
+  .overlay {
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+  }
 }
 </style>

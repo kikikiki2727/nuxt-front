@@ -1,7 +1,7 @@
 export class Vonage {
-  OT: Object
+  OT: object
 
-  constructor(OT: Object){
+  constructor(OT: object ){
     this.OT = OT
   };
   orange(): string {

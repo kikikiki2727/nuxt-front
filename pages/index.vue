@@ -27,14 +27,15 @@
     <div class="right">
       <div class="description"></div>
     </div>
+    <HomeSelectionPopup ref="selectionPopup" />
   </div>
-  <HomeSelectionPopup ref="selectionPopup" />
 </template>
 <script setup lang="ts">
 // const selectionPopup = ref<InstanceType<typeof SelectionPopup>>();
 const selectionPopup = ref(null);
 
 const toggleSelectionPopup = () => {
+  console.log("toggleSelectionPopup");
   selectionPopup.value.isDisplay = true;
 };
 </script>

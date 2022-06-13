@@ -46,4 +46,17 @@ input {
     outline: none;
   }
 }
+
+a {
+  text-decoration: none;
+  color: #000000;
+
+  &:active {
+    color: #000000;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
 </style>
