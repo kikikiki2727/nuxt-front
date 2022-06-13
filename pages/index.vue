@@ -31,9 +31,9 @@
   <HomeSelectionPopup ref="selectionPopup" />
 </template>
 <script setup lang="ts">
-import SelectionPopup from "components/home/selectionPopup.vue";
+// const selectionPopup = ref<InstanceType<typeof SelectionPopup>>();
+const selectionPopup = ref(null);
 
-const selectionPopup = ref<InstanceType<typeof SelectionPopup>>();
 const toggleSelectionPopup = () => {
   selectionPopup.value.isDisplay = true;
 };

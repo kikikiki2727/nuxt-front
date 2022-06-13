@@ -1,10 +1,10 @@
 <template>
   <div v-if="isDisplay" class="selection-popup">
-    <div class="section">
+    <div class="section" @click="createMeetingNextTime">
       <img class="icon -link" src="/public/icon/link.svg" />
       <p class="text">次回以降の会議を作成</p>
     </div>
-    <div class="section">
+    <div class="section" @click="createMeetingNow">
       <img class="icon" src="/public/icon/plus.svg" />
       <p class="text">会議を今すぐ開始</p>
     </div>
@@ -15,25 +15,35 @@
   </div>
   <div v-if="isDisplay" class="overlay" @click.self="toggleDisplay"></div>
 </template>
-<script lang="ts">
-export default defineComponent({
-  setup() {
-    const isDisplay = ref<boolean>(false);
+<script setup lang="ts">
+// export default defineComponent({
+//   setup() {
+const isDisplay = ref<boolean>(false);
 
-    const toggleDisplay = (): void => {
-      isDisplay.value = !isDisplay.value;
-    };
+const toggleDisplay = (): void => {
+  isDisplay.value = !isDisplay.value;
+};
 
-    // defineExpose({
-    //   isDisplay,
-    // });
+const createMeetingNow = () => {
+  isDisplay.value = false;
+};
 
-    return {
-      isDisplay,
-      toggleDisplay,
-    };
-  },
+const createMeetingNextTime = () => {
+  isDisplay.value = false;
+};
+
+defineExpose({
+  isDisplay,
 });
+
+//     return {
+//       isDisplay,
+//       toggleDisplay,
+//       createMeetingNow,
+//       createMeetingNextTime,
+//     };
+//   },
+// });
 </script>
 
 <style lang="scss" scoped>
@@ -41,7 +51,7 @@ export default defineComponent({
   box-shadow: 0 5px 8px gray;
   border-radius: 5px;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 8%;
   z-index: 3;
   background-color: white;
