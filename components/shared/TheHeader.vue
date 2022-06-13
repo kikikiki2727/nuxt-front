@@ -17,18 +17,16 @@
 import format from "date-fns/format";
 const dateInstance = new Date();
 const dayOfWeekList = ["日", "月", "火", "水", "木", "金", "土"];
-const dayOfWeekToday = dayOfWeekList[dateInstance.getDay()];
-const currentDate = ref(
+const dayOfWeekToday: string = dayOfWeekList[dateInstance.getDay()];
+const currentDate = ref<string>(
   format(dateInstance, `HH:mm・M月d日(${dayOfWeekToday})`)
 );
 
 onMounted(() => {
   const fiveSeconds = 5000;
   setInterval(() => {
-    currentDate.value = format(
-      dateInstance,
-      `HH:mm・M月d日(${dayOfWeekToday})`
-    );
+    currentDate.value = format(new Date(), `HH:mm・M月d日(${dayOfWeekToday})`);
+    console.log(currentDate.value);
   }, fiveSeconds);
 });
 </script>
