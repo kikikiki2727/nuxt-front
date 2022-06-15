@@ -6,15 +6,15 @@
   </div>
 </template>
 <script setup lang="ts">
-const sample2 = ref<string>("sample2");
+// const sample2 = ref<string>("sample2");
 
-type Props = {
-  orange: string;
-  cherry?: string;
-};
+// type Props = {
+//   orange: string;
+//   cherry?: string;
+// };
 
-const props = withDefaults(defineProps<Props>(), {
-  orange: "",
-  cherry: "cherry",
-});
+// const props = withDefaults(defineProps<Props>(), {
+//   orange: "",
+//   cherry: "cherry",
+// });
 </script>

@@ -20,15 +20,34 @@
 <script setup lang="ts">
 // export default defineComponent({
 //   setup() {
+// const config = useRuntimeConfig();
+// const baseURL =
+//   process.env.NODE_ENV === "production"
+//     ? config.public.baseApiUrl
+//     : config.public.baseApiUrlDev;
 const router = useRouter();
-const isDisplay = ref<boolean>(false);
 
+const isDisplay = ref<boolean>(false);
 const toggleDisplay = (): void => {
   isDisplay.value = !isDisplay.value;
 };
 
-const createMeetingNow = () => {
-  router.push("/show");
+type CampaignObj = {
+  id: number;
+  sessionId: string;
+};
+
+// const campaign = ref<CampaignObj>(null);
+
+const createMeetingNow = async () => {
+  const campaign = await $fetch<CampaignObj>(`http://localhost:4000/campaign`, {
+    method: "POST",
+  }).catch((error) => {
+    console.log(error.data);
+    throw Error;
+  });
+  console.log(campaign);
+  router.push(`/show?id=${campaign.id}&enter=after`);
   isDisplay.value = false;
 };
 

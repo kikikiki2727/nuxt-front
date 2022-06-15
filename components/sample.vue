@@ -27,20 +27,18 @@ const posts = ref(null);
 
 const post = ref(null);
 
-// const {
-//   data: apple,
-//   pending: aaplePending,
-//   error,
-//   refresh,
-// } = await useAsyncData("sample", () =>
-//   $fetch(`${baseURL}/${sample.value}`)
+const {
+  data: apple,
+  pending: aaplePending,
+  error,
+  refresh,
+} = await useAsyncData("sample", () => $fetch(`${baseURL}/${sample.value}`));
+console.log(apple);
+
+// const { data: apple, pending: aaplePending } = await useFetch(
+//   `${baseURL}/${sample.value}`
 // );
 // console.log(apple);
-
-const { data: apple, pending: aaplePending } = await useFetch(
-  `${baseURL}/${sample.value}`
-);
-console.log(apple);
 
 onMounted(async () => {
   await import("@opentok/client");
