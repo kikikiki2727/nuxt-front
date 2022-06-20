@@ -1,5 +1,8 @@
 <template>
-  <div class="before-entering">beforeEntering</div>
+  <div class="before-entering">
+    <p>beforeEntering</p>
+    <!-- <div id="videos"></div> -->
+  </div>
 </template>
 <script setup lang="ts"></script>
 

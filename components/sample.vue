@@ -42,8 +42,8 @@ console.log(apple);
 
 onMounted(async () => {
   await import("@opentok/client");
-  const vonage = new Vonage(OT);
-  console.log(vonage);
+  // const vonage = new Vonage(OT);
+  // console.log(vonage);
   console.log(plugins.$hello());
   sample.value = await $fetch<string>(`${baseURL}/sample`).catch((error) =>
     console.log(error.data)
