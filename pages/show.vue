@@ -1,13 +1,10 @@
 <template>
   <div class="show-container">
-    <MeetAfterEntering v-if="isEntered" />
-    <MeetBeforeEntering v-else />
-    {{ campaign }}
-    {{ sessionToken }}
-    {{ vonageApiKey }}
+    <MeetAfterEntering v-show="isEntered" />
+    <MeetBeforeEntering v-show="!isEntered" />
+    {{ isEntered }}
     <button @click="sessionConnect">入室</button>
     <div id="videos"></div>
-    <div id="videos2"></div>
   </div>
 </template>
 <script setup lang="ts">
@@ -25,7 +22,7 @@ const campaign = ref<CampaignObj>(null);
 const sessionToken = ref<string>("");
 const vonageApiKey = ref<string>("");
 // const vonageInstance = ref<any>(null);
-let vonageInstance = null;
+let vonageInstance = null; // 一旦let
 
 onMounted(async () => {
   if (route.query.enter === "after") isEntered.value = true;
@@ -60,10 +57,8 @@ onMounted(async () => {
   vonageInstance.initPublisher();
 });
 
-const sessionConnect = (): void => {
-  // console.log("sessionConnect");
-  // console.log(vonageInstance);
-  vonageInstance.sessionConnect(sessionToken.value);
+const sessionConnect = async () => {
+  isEntered.value = await vonageInstance.sessionConnect(sessionToken.value);
 };
 </script>
 

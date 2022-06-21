@@ -5,16 +5,21 @@ export class Vonage {
   OT: any
   apiKey: string
   sessionId: string
+
+  isEntered: boolean
+
   publisherOpts: object // 仮の型
   sessionObj: any
   publisherObj: any
-  subscribeOpts: any
+  subscribeOpts: object
 
   // OT: any, 
   constructor(OT: any, apiKey: string, sessionId: string){
     this.OT = OT
     this.apiKey = apiKey
     this.sessionId = sessionId
+
+    this.isEntered = false
 
     this.sessionObj = null
     this.publisherObj = null
@@ -50,10 +55,26 @@ export class Vonage {
   // }
 
   initSession() {
-    this.sessionObj = this.OT.initSession(this.apiKey, this.sessionId).on('streamCreated', (e) => {
+    this.sessionObj = this.OT.initSession(this.apiKey, this.sessionId)
+    .on('streamCreated', (e) => {
       console.log('streamCreated', e)
       this.sessionObj.subscribe(e.stream, 'videos', this.subscribeOpts);
-    }, this);
+    }, this)
+    .on('streamDestroyed', (e) => {
+      console.log('streamDestroyed', e)
+    })
+    .on('sessionConnected', (e) => {
+      console.log('sessionConnected', e)
+    })
+    .on('sessionDisconnected', (e) => {
+      console.log('sessionDisconnected', e)
+    })
+    .on('connectionCreated', (e) => {
+      console.log('connectionCreated', e)
+    })
+    .on('connectionDestroyed', (e) => {
+      console.log('connectionDestroyed', e)
+    })
     // console.log(this.sessionObj)
   }
 
@@ -61,13 +82,20 @@ export class Vonage {
     this.publisherObj = this.OT.initPublisher('videos', this.publisherOpts)
   }
 
-  sessionConnect(token: string) {
-    this.sessionObj.connect(token, (e: Error) => {
-      if(e) {
-        console.log('error', e)
-      } else {
-        this.sessionObj.publish(this.publisherObj)
-      }
-    } )
+  async sessionConnect(token: string): Promise<boolean> {
+    await new Promise((resolve) => {
+      this.sessionObj.connect(token, (e: Error) => {
+        if(e) {
+          console.log('error', e)
+          resolve(false)
+        } else {
+          this.sessionObj.publish(this.publisherObj)
+          resolve(true)
+        }
+      })
+    }).then((isEntered: boolean) => {
+      this.isEntered = isEntered
+    })
+    return this.isEntered
   }
 }

@@ -1,5 +1,8 @@
 <template>
-  <div class="after-entering">afterEntering</div>
+  <div class="after-entering">
+    <p>afterEntering</p>
+    <!-- <div id="videos"></div> -->
+  </div>
 </template>
 <script setup lang="ts"></script>
 
