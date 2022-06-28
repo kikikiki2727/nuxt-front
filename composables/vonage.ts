@@ -8,7 +8,7 @@ export class Vonage {
 
   isEntered: boolean
 
-  publisherOpts: object // 仮の型
+  publisherOpts: object
   sessionObj: any
   publisherObj: any
   subscribeOpts: object
@@ -54,6 +54,9 @@ export class Vonage {
   //   console.log(this.OT)
   // }
 
+  /**
+   * 
+   */
   initSession() {
     this.sessionObj = this.OT.initSession(this.apiKey, this.sessionId)
     .on('streamCreated', (e) => {
@@ -96,6 +99,12 @@ export class Vonage {
     }).then((isEntered: boolean) => {
       this.isEntered = isEntered
     })
+    return this.isEntered
+  }
+
+  sessionDisconnect(): boolean {
+    this.sessionObj.disconnect()
+    this.isEntered = false
     return this.isEntered
   }
 }

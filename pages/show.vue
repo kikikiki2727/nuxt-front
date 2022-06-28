@@ -3,7 +3,8 @@
     <MeetAfterEntering v-show="isEntered" />
     <MeetBeforeEntering v-show="!isEntered" />
     {{ isEntered }}
-    <button @click="sessionConnect">入室</button>
+    <button v-if="!isEntered" @click="sessionConnect">入室</button>
+    <button v-else @click="sessionDisconnect">退出</button>
     <div id="videos"></div>
   </div>
 </template>
@@ -59,6 +60,10 @@ onMounted(async () => {
 
 const sessionConnect = async () => {
   isEntered.value = await vonageInstance.sessionConnect(sessionToken.value);
+};
+
+const sessionDisconnect = () => {
+  isEntered.value = vonageInstance.sessionDisconnect();
 };
 </script>
 
