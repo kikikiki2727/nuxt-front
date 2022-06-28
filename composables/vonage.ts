@@ -154,7 +154,7 @@ export class Vonage {
     this.OT.checkScreenSharingCapability((res) => {
       if(!res.supported || res.extensionRegistered === false) {
         console.log('res', res)
-        console.error('このブラウザは画面共有をサポートしていません')
+        console.error('no supported browser')
         throw Error
       } else {
         this.screenSharingObj = this.OT.initPublisher(this.videoInsertId,
