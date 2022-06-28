@@ -47,15 +47,8 @@ export class Vonage {
     }
   };
 
-  // async sample() {
-  //   const OT = await import("@opentok/client");
-  //   this.OT = OT
-  //   console.log(OT)
-  //   console.log(this.OT)
-  // }
-
   /**
-   * 
+   * セッションオブジェクト初期化
    */
   initSession() {
     this.sessionObj = this.OT.initSession(this.apiKey, this.sessionId)
@@ -81,10 +74,18 @@ export class Vonage {
     // console.log(this.sessionObj)
   }
 
+  /**
+   * publisherオブジェクト初期化
+   */
   initPublisher() {
     this.publisherObj = this.OT.initPublisher('videos', this.publisherOpts)
   }
 
+  /**
+   * sessionに接続
+   * @param {string} token
+   * @returns {boolean}
+   */
   async sessionConnect(token: string): Promise<boolean> {
     await new Promise((resolve) => {
       this.sessionObj.connect(token, (e: Error) => {
@@ -102,6 +103,10 @@ export class Vonage {
     return this.isEntered
   }
 
+  /**
+   * sessionの接続解除
+   * @returns {boolean}
+   */
   sessionDisconnect(): boolean {
     this.sessionObj.disconnect()
     this.isEntered = false
