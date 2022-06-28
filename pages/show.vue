@@ -3,8 +3,23 @@
     <MeetAfterEntering v-show="isEntered" />
     <MeetBeforeEntering v-show="!isEntered" />
     {{ isEntered }}
+
     <button v-if="!isEntered" @click="sessionConnect">入室</button>
     <button v-else @click="sessionDisconnect">退出</button>
+
+    <button v-if="isActiveAudio" @click="toggleAudio">
+      <img src="/public/icon/mic_on.svg" style="width: 20px" />
+    </button>
+    <button v-else @click="toggleAudio">
+      <img src="/public/icon/mic_off.svg" style="width: 20px" />
+    </button>
+    <button v-if="isActiveVideo" @click="toggleVideo">
+      <img src="/public/icon/camera_on.svg" style="width: 20px" />
+    </button>
+    <button v-else @click="toggleVideo">
+      <img src="/public/icon/camera_off.svg" style="width: 25px" />
+    </button>
+
     <div id="videos"></div>
   </div>
 </template>
@@ -18,6 +33,8 @@ type TypeGenerateToken = {
 
 const route = useRoute();
 const isEntered = ref<boolean>(false);
+const isActiveAudio = ref<boolean>(true);
+const isActiveVideo = ref<boolean>(true);
 
 const campaign = ref<CampaignObj>(null);
 const sessionToken = ref<string>("");
@@ -64,6 +81,16 @@ const sessionConnect = async () => {
 
 const sessionDisconnect = () => {
   isEntered.value = vonageInstance.sessionDisconnect();
+};
+
+const toggleAudio = () => {
+  vonageInstance.publisherObj.publishAudio(!isActiveAudio.value);
+  isActiveAudio.value = !isActiveAudio.value;
+};
+
+const toggleVideo = () => {
+  vonageInstance.publisherObj.publishVideo(!isActiveVideo.value);
+  isActiveVideo.value = !isActiveVideo.value;
 };
 </script>
 
