@@ -20,6 +20,10 @@
       <img src="/public/icon/camera_off.svg" style="width: 25px" />
     </button>
 
+    <button v-if="isEntered" @click="shareScreen">
+      <img src="/public/icon/screen_sharing.svg" style="width: 20px" />
+    </button>
+
     <div id="videos"></div>
   </div>
 </template>
@@ -91,6 +95,10 @@ const toggleAudio = () => {
 const toggleVideo = () => {
   vonageInstance.publisherObj.publishVideo(!isActiveVideo.value);
   isActiveVideo.value = !isActiveVideo.value;
+};
+
+const shareScreen = () => {
+  vonageInstance.shareScreen();
 };
 </script>
 

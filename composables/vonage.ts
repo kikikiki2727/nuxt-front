@@ -5,13 +5,17 @@ export class Vonage {
   OT: any
   apiKey: string
   sessionId: string
+  
+  videoInsertId: string
 
   isEntered: boolean
 
-  publisherOpts: object
   sessionObj: any
   publisherObj: any
+  screenSharingObj: any
+  publisherOpts: object
   subscribeOpts: object
+  screenSharingOpts: object
 
   // OT: any, 
   constructor(OT: any, apiKey: string, sessionId: string){
@@ -19,10 +23,13 @@ export class Vonage {
     this.apiKey = apiKey
     this.sessionId = sessionId
 
+    this.videoInsertId = 'videos'
+
     this.isEntered = false
 
     this.sessionObj = null
     this.publisherObj = null
+    this.screenSharingObj = null
     this.publisherOpts = {
       fitMode: "cover",
       insertMode: "append",
@@ -45,6 +52,18 @@ export class Vonage {
         videoDisabledDisplayMode: "off",
       },
     }
+    this.screenSharingOpts = {
+      videoSource: 'screen',
+      fitMode: "cover",
+      insertMode: "append",
+      name: "",
+      style: {
+        audioLevelDisplayMode: "off",
+        archiveStatusDisplayMode: "off",
+        buttonDisplayMode: "off",
+        nameDisplayMode: "on",
+      },
+    };
   };
 
   /**
@@ -54,7 +73,7 @@ export class Vonage {
     this.sessionObj = this.OT.initSession(this.apiKey, this.sessionId)
     .on('streamCreated', (e) => {
       console.log('streamCreated', e)
-      this.sessionObj.subscribe(e.stream, 'videos', this.subscribeOpts);
+      this.sessionObj.subscribe(e.stream, this.videoInsertId, this.subscribeOpts);
     }, this)
     .on('streamDestroyed', (e) => {
       console.log('streamDestroyed', e)
@@ -78,7 +97,14 @@ export class Vonage {
    * publisherオブジェクト初期化
    */
   initPublisher() {
-    this.publisherObj = this.OT.initPublisher('videos', this.publisherOpts)
+    this.publisherObj = this.OT.initPublisher(this.videoInsertId, this.publisherOpts, (e) => {
+      if(e) {
+        console.error('error', e)
+        throw Error
+      } else {
+        console.log('success initPublisher')
+      }
+    })
   }
 
   /**
@@ -93,7 +119,15 @@ export class Vonage {
           console.log('error', e)
           resolve(false)
         } else {
-          this.sessionObj.publish(this.publisherObj)
+          console.log('success session connect')
+          this.sessionObj.publish(this.publisherObj, (e) => {
+            if (e) {
+              console.error('error', e)
+              throw Error
+            } else {
+              console.log('success publish')
+            }
+          })
           resolve(true)
         }
       })
@@ -111,5 +145,38 @@ export class Vonage {
     this.sessionObj.disconnect()
     this.isEntered = false
     return this.isEntered
+  }
+
+  /**
+   * 画面共有
+   */
+  shareScreen() {
+    this.OT.checkScreenSharingCapability((res) => {
+      if(!res.supported || res.extensionRegistered === false) {
+        console.log('res', res)
+        console.error('このブラウザは画面共有をサポートしていません')
+        throw Error
+      } else {
+        this.screenSharingObj = this.OT.initPublisher(this.videoInsertId,
+          this.screenSharingOpts,
+          (e) => {
+            if (e) {
+              console.error('error', e)
+              throw Error
+            } else {
+              console.log('success initPublisher')
+              this.sessionObj.publish(this.screenSharingObj, (e) => {
+                if (e) {
+                  console.error('error', e)
+                  throw Error
+                } else {
+                  console.log('success publish')
+                }
+              });
+            }
+          }
+        );
+      }
+    });
   }
 }
