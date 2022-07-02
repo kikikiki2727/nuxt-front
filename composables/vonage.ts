@@ -1,6 +1,19 @@
 // const OT = await import("@opentok/client");
 // import OT from "@opentok/client"
 // console.log(OT)
+
+type PublisherOptsType = {
+  fitMode?: "cover" | "contain",
+  insertMode?: "replace" | "after" | "before" | "append",
+  name?: string,
+  style?: {
+    audioLevelDisplayMode?: "auto" | "on" | "off",
+    archiveStatusDisplayMode?: "auto" | "off",
+    buttonDisplayMode?: "auto" | "on" | "off",
+    nameDisplayMode?: "auto" | "on" | "off",
+  },
+}
+
 export class Vonage {
   OT: any
   apiKey: string
@@ -13,7 +26,7 @@ export class Vonage {
   sessionObj: any
   publisherObj: any
   screenSharingObj: any
-  publisherOpts: object
+  publisherOpts: PublisherOptsType
   subscribeOpts: object
   screenSharingOpts: object
 
