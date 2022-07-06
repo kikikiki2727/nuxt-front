@@ -47,7 +47,7 @@ const createMeetingNow = async () => {
     throw Error;
   });
   console.log(campaign);
-  router.push(`/show?id=${campaign.id}&enter=after`);
+  router.push(`/show?id=${campaign.id}&enter=before`);
   isDisplay.value = false;
 };
 
