@@ -1,3 +1,14 @@
+## URL  
+GoogleMeetみたいなやつ  
+https://nuxt3-front.herokuapp.com/
+
+一旦herokuにデプロイ  
+現在使える機能
+- 新しい会議作成
+- 会議参加・退出
+- カメラ・マイクのON/OFF
+- 画面共有
+
 # Nuxt 3 Minimal Starter
 
 Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
